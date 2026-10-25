@@ -11,3 +11,15 @@ Input returns a short wait/poll flow while Next.js after() processes the agent t
 The greeting identifies AI, transcript storage and fictional-data use. Conversations belong to the active administrator chosen when the call starts. Transcript access follows existing workspace permissions. No audio recording is enabled by this adapter. Provider speech processing still occurs. Review retention and consent requirements before any real customer use.
 
 To test: call the connected number yourself, listen to the AI disclosure, and ask a fictional question such as the published boiler-service price. Pause three seconds after speaking. Ask a follow-up, then say goodbye. Verify conversation records and Plivo call logs. API/signature checks do not prove carrier audio quality; a real handset test is required.
+
+## Streaming upgrade
+
+`PLIVO_STREAMING=true` starts the audio gateway on the web service's public port and Next.js on internal port 3001. The same Answer URL issues a short-lived, single-use stream credential. The gateway verifies that the Plivo start event matches the bound call and account. Audio uses native mu-law 8kHz in both directions.
+
+ElevenLabs Scribe realtime transcribes continuously; Eleven Flash v2.5 streams speech. Caller speech activity or a partial transcript clears Plivo's playback queue and aborts stale processing. The existing DeepSeek engine still completes its tool reasoning before speech begins: audio is bidirectional, but model-response latency is not guaranteed below one second. Noise/echo can cause false interruptions and requires handset evaluation.
+
+Call simulator → **View live telephone calls** provides an administrator/dispatcher-only read-only map and transcript, refreshed every two seconds. No secret stream credentials are returned to that screen. Agent events use the same business stages as browser simulation.
+
+Limits: three concurrent streams per web process, 10-minute sessions, 20 caller turns, bounded socket payloads/buffers, and existing monthly speech budget. Gateway or STT failure closes the stream and the XML offers the prior turn-based path. Set PLIVO_STREAMING=false and redeploy to roll back. Brief restart interruptions remain possible; this is not multi-region failover or certified production telephony. Provider usage is billable.
+
+Verification: 48 automated tests passed, including stale-generation cancellation and mu-law silence checks. A local WebSocket integration test rejected unauthenticated connections and mismatched call IDs. A hosted synthetic provider test received ElevenLabs greeting audio, injected a fictional caller utterance, observed clearAudio, and received subsequent response audio. This exercised real ElevenLabs/DeepSeek services but did not dial a handset or prove carrier-to-WebSocket operation; that remains the next manual check.

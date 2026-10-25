@@ -2,7 +2,7 @@
 
 Meraki technical assessment: a multi-page public website and authenticated operations workspace, extended with simulated automations and an AI voice-call studio. **Browser calls and business actions remain simulated. A real inbound Plivo telephone pilot is now implemented; bookings, messages and dispatches are still simulated.** AI and voice providers process test conversations when configured; use fictional data only.
 
-[Private GitHub repository](https://github.com/Ree-saved2307/brightwater-meraki-assessment)
+[GitHub repository](https://github.com/Ree-saved2307/brightwater-meraki-assessment)
 
 ## Live application
 
@@ -42,6 +42,10 @@ npm start
 - [Assessment checklist and remaining evidence](docs/assessment-checklist.md)
 - [Telephony flow, build sheet, questions, client email and support ticket](docs/telephony-and-support.md)
 - [Development summary and AI assistance disclosure](docs/development-summary.md)
+
+## Telephone streaming
+
+The Plivo inbound pilot now supports an ElevenLabs audio bridge with caller interruption. See [streaming setup and limits](docs/plivo-pilot.md#streaming-upgrade). The Call simulator includes a live telephone map viewer. Carrier/handset quality still requires real-call verification.
 
 ## What works
 

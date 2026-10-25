@@ -1,3 +1,5 @@
+import {randomBytes} from 'node:crypto';
+import {tokenHash,type TelephoneStream} from '@/lib/telephone-stream';
 import {after} from 'next/server';
 import {validSignature,xml,speak,escapeXml} from '@/lib/plivo';
 import {getRecord,saveRecord,transaction,query,rateLimit} from '@/lib/store';
@@ -21,10 +23,18 @@ export async function POST(req:Request,{params}:{params:Promise<{action:string}>
  if(action==='fallback')return finish('Sorry, this demonstration is temporarily unavailable. No booking or dispatch has been made. Goodbye.');
  let session=await getRecord<Session>(key);
  if(action==='hangup'){if(session){session.closed=true;await saveRecord(key,'telephone-session',session);}return xml('');}
- if(action==='answer'){
+ if(action==='answer'||action==='legacy'){
+  if(action==='legacy'&&(await getRecord<TelephoneStream>('STREAM-'+uuid))?.status==='Completed')return xml('<Hangup/>');
   if(!session){if(fields.To?.replace(/\D/g,'')!==process.env.PLIVO_NUMBER||!(await agentProfile()).enabled||!process.env.DEEPSEEK_API_KEY||!await rateLimit('plivo-starts',100,86400))return finish('This demonstration is unavailable. Goodbye.');
    const admin=(await query("SELECT id FROM users WHERE role='admin' AND active=1 LIMIT 1")).rows[0];if(!admin)return finish('Service unavailable.');
    session={id:key,owner:admin.id,created:Date.now(),turn:0,closed:false,silence:0};await saveRecord(key,'telephone-session',session);
+  }
+  if(action==='answer'&&process.env.PLIVO_STREAMING==='true'){
+   const token=randomBytes(32).toString('hex'),id='STREAM-'+uuid;
+   const record:TelephoneStream={id,uuid,owner:session.owner,tokenHash:tokenHash(token),expires:Date.now()+60000,connected:false,closed:false,created:Date.now(),stage:'opening',events:[],status:'Connecting'};
+   await saveRecord(id,'telephone-stream',record);
+   const stream=origin.replace('https://','wss://')+'/voice-stream?id='+id+'&token='+token;
+   return xml(`<Stream bidirectional="true" keepCallAlive="true" contentType="audio/x-mulaw;rate=8000">${escapeXml(stream)}</Stream><Redirect method="POST">${escapeXml(base+'legacy')}</Redirect>`);
   }
   return gather('Hello, this is the Brightwater AI demonstration for fictional UK plumbing enquiries. This is a real phone connection, but we cannot book or dispatch anyone. Your speech is processed by AI and a transcript is stored for the demonstration. Please use fictional details. How can I help?',session.turn);
  }

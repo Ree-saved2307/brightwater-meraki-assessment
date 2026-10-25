@@ -18,7 +18,8 @@ function stop(code){
 const role=process.env.SERVICE_ROLE||'web';
 if(role==='web'&&process.env.DATABASE_URL){const migration=spawn(process.execPath,['--import','tsx','scripts/migrate-postgres.ts'],{stdio:'inherit',env:process.env});const code=await new Promise(resolve=>migration.on('exit',resolve));if(code!==0)process.exit(1);}
 const commands=role==='worker'?[['--import','tsx','scripts/queue-worker.ts']]:role==='beat'?[['--import','tsx','scripts/beat.ts']]:[
- ['node_modules/next/dist/bin/next','start','--hostname','0.0.0.0','--port',process.env.PORT||'3000'],
+ ['node_modules/next/dist/bin/next','start','--hostname',process.env.PLIVO_STREAMING==='true'?'127.0.0.1':'0.0.0.0','--port',process.env.PLIVO_STREAMING==='true'?'3001':process.env.PORT||'3000'],
+ ...(process.env.PLIVO_STREAMING==='true'?[['--import','tsx','scripts/voice-gateway.ts']]:[]),
  ...(process.env.DATABASE_URL?[['--import','tsx','scripts/backup-worker.ts']]:[]),
  ...(!process.env.REDIS_URL?[['--import','tsx','scripts/automation-worker.ts']]:[])
 ];
