@@ -1,0 +1,13 @@
+import Redis from 'ioredis';
+import {createServer} from 'node:http';
+import {Worker} from 'bullmq';
+import {redisConnection,queueName} from '../lib/queue';
+import {runDue} from '../lib/automation-engine';
+import {saveRecord,initStore,closeStore} from '../lib/store';
+async function main(){await initStore();const worker=new Worker(queueName,async job=>{if(job.name!=='automation-tick')throw Error('Unknown job type.');return {processed:await runDue(new Date(),'worker')};},{connection:redisConnection(),concurrency:2});
+worker.on('failed',(job,error)=>console.error('Queue job failed',{id:job?.id,message:error.message}));worker.on('error',()=>console.error('Queue connection error'));
+await worker.waitUntilReady();const beat=setInterval(()=>{saveRecord('queue-worker-health','worker-health',{lastSeen:new Date().toISOString(),status:'running'}).catch(()=>console.error('Worker heartbeat failed'));},15000);
+const probe=new Redis({...redisConnection(),maxRetriesPerRequest:1,commandTimeout:3000});const health=createServer(async(req,res)=>{try{await probe.ping();res.writeHead(200);res.end('ok');}catch{res.writeHead(503);res.end('unavailable');}}).listen(Number(process.env.PORT||3000),'0.0.0.0');
+console.log('Brightwater dedicated worker ready; external delivery remains simulated.');
+let stopping=false;async function stop(){if(stopping)return;stopping=true;clearInterval(beat);health.close();probe.disconnect();await worker.close();await closeStore();process.exit(0);}process.on('SIGTERM',stop);process.on('SIGINT',stop);
+}main().catch(e=>{console.error('Worker startup failed',String(e.message).replace(/redis[s]?:\/\/\S+/g,'[redacted]'));process.exit(1);});

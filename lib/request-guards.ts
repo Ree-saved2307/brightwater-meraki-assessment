@@ -1,0 +1,3 @@
+import type {NextRequest} from 'next/server';
+export function trustedOrigin(req:NextRequest){return req.headers.get('origin')===(process.env.APP_ORIGIN||`${req.nextUrl.protocol}//${req.headers.get('host')}`);}
+export async function limitedBody(req:Request,max:number){if(Number(req.headers.get('content-length')||0)>max)throw Error('Request too large.');const reader=req.body?.getReader();if(!reader)return new Uint8Array();let length=0;const chunks:Uint8Array[]=[];while(true){const {done,value}=await reader.read();if(done)break;length+=value.byteLength;if(length>max){await reader.cancel();throw Error('Request too large.');}chunks.push(value);}const output=new Uint8Array(length);let offset=0;for(const c of chunks){output.set(c,offset);offset+=c.length;}return output;}

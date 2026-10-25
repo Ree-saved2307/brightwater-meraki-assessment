@@ -1,0 +1,24 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {mkdtempSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {agentTurn,executeAgentTool,endAgentCall,suspectedGasHazard,type AgentCall} from '../lib/agent-engine';
+import {spokenText,reserveVoiceBudget,synthesize,transcribe} from '../lib/voice';
+import {saveRecord,getRecord} from '../lib/store';
+process.env.DATA_DIR=mkdtempSync(join(tmpdir(),'bw-voice-'));
+const call:AgentCall={id:'AGENT-voice',owner:'operator',version:1,mode:'DeepSeek AI',messages:[{role:'user',content:'Hello'},{role:'assistant',content:'How can I help?'}],trace:[],proposals:[],closed:false,created:new Date().toISOString()};
+test('context is restricted to known fields and creates inspectable stages',async ()=>{(await executeAgentTool(call,'update_context',{stage:'qualification',facts:{postcode:'PO4 0AA',secret:'not allowed',name:'a'.repeat(151)}}));assert.deepEqual(call.facts,{postcode:'PO4 0AA'});assert.equal(call.events?.at(-1)?.stage,'qualification');(await saveRecord(call.id,'agent-call',call));});
+test('voice synthesis only reads owned assistant messages',async ()=>{assert.equal((await spokenText('operator',call.id,1)),'How can I help?');await assert.rejects(async ()=>(await spokenText('someone',call.id,1)));await assert.rejects(async ()=>(await spokenText('operator',call.id,0)));await assert.rejects(async ()=>(await spokenText('operator',call.id,-1)));});
+test('gas hazard detection distinguishes explicitly negated symptoms',()=>{assert.equal(suspectedGasHazard('There is no smell of gas and no water leak.'),false);assert.equal(suspectedGasHazard('I do not smell gas.'),false);assert.equal(suspectedGasHazard('There is no heating and I smell gas.'),true);assert.equal(suspectedGasHazard('Gas is leaking from the pipe.'),true);assert.equal(suspectedGasHazard('No gas smell, but the carbon monoxide alarm is sounding.'),true);});
+test('stream events expose tool activity and completion state, not private reasoning',async()=>{process.env.DEEPSEEK_API_KEY='test-only';const original=globalThis.fetch;let n=0;const events:Record<string,unknown>[]=[];globalThis.fetch=async()=>Response.json({choices:[{message:++n===1?{tool_calls:[{id:'a',function:{name:'check_prices',arguments:'{}'}}],reasoning_content:'private test reasoning'}:{content:'A boiler service is £95.'}}]});try{const c=await agentTurn(undefined,'Check the boiler price','stream-test',undefined,{onEvent:e=>events.push(e)});assert.ok(events.some(e=>e.type==='tool-start'));assert.ok(events.some(e=>e.type==='tool-result'&&e.stage==='pricing'));assert.ok(c.events?.some(e=>e.stage==='pricing'));assert.equal(JSON.stringify(events).includes('private test reasoning'),false);}finally{globalThis.fetch=original;delete process.env.DEEPSEEK_API_KEY;}});
+test('ending a saved call prevents more turns and persists a closing event',async()=>{const result=(await endAgentCall(call.id,'operator'));assert.equal(result.closed,true);assert.equal(result.stage,'closing');await assert.rejects(async ()=>(await agentTurn(call.id,'Another turn','operator',result.version)),/closed or changed/);});
+test('provider key is required; speech and transcription limits are enforced',async()=>{delete process.env.ELEVENLABS_API_KEY;await assert.rejects(async ()=>(await synthesize('Hello','operator')),/not connected/);process.env.ELEVENLABS_API_KEY='test-only';await assert.rejects(async ()=>(await transcribe(new File(['x'.repeat(200)],'test.txt',{type:'text/plain'}),'operator')),/audio turn/);process.env.ELEVENLABS_CHARACTER_LIMIT='100';(await reserveVoiceBudget(99));await assert.rejects(async ()=>(await reserveVoiceBudget(2)),/limit is reached/);delete process.env.ELEVENLABS_API_KEY;delete process.env.ELEVENLABS_CHARACTER_LIMIT;});
+test('coverage outcomes produce evidence-based branches and corrected details recheck eligibility',async()=>{
+ const c:AgentCall={...call,id:'AGENT-branch',closed:false,events:[],facts:{}};
+ await executeAgentTool(c,'check_coverage',{postcode:'PO10 7AA',service:'boiler',existingAgent:false});assert.equal(c.stage,'unavailable');
+ await executeAgentTool(c,'check_coverage',{postcode:'PO4 0AA',service:'boiler',existingAgent:false});assert.equal(c.stage,'coverage');
+ await executeAgentTool(c,'update_context',{stage:'complaint',facts:{intent:'Repeated missed response'}});assert.equal(c.stage,'complaint');
+ const rejected=await executeAgentTool(c,'update_context',{stage:'approval',facts:{}});assert.ok((rejected as {error?:string}).error);assert.equal(c.stage,'complaint');
+ assert.equal(c.proposals.length,call.proposals.length);
+});

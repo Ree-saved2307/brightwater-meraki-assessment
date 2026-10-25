@@ -1,0 +1,4 @@
+// Explicit diagnostic: run only with a configured provider and a temporary DATA_DIR.
+import {agentTurn} from '../lib/agent-engine';
+async function main(){if(!process.env.DEEPSEEK_API_KEY)throw Error('Provider key not configured.');const call=await agentTurn(undefined,'This is a fictional test call. Please use check_prices to check the boiler service price. Do not create any actions.','connection-test');if(call.mode!=='DeepSeek AI'||!call.trace.some(t=>t.tool==='check_prices'))throw Error('Provider responded but the price-check tool was not exercised.');console.log('PASS: live DeepSeek conversation invoked check_prices and returned a reply. No customer action was created.');if(call.proposals.length)throw Error('Unexpected proposal created.');}
+main().catch(()=>{console.error('AI tool-call diagnostic failed. Check provider configuration.');process.exitCode=1;});

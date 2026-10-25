@@ -1,0 +1,24 @@
+import assert from 'node:assert/strict';
+const origin=process.env.TEST_ORIGIN||'http://127.0.0.1:3000';
+if(!['127.0.0.1','localhost'].includes(new URL(origin).hostname))throw Error('Run integration checks only against a local fictional demo.');
+let cookie='';
+async function call(path,body,extra={}){const r=await fetch(origin+'/api/'+path,{method:body?'POST':'GET',headers:{...(body?{'Content-Type':'application/json',Origin:origin}:{}),...(cookie?{Cookie:cookie}:{}),...extra},...(body?{body:JSON.stringify(body)}:{})});return {status:r.status,body:await r.json(),cookie:r.headers.get('set-cookie')};}
+assert.equal((await call('workspace')).status,401);
+assert.equal((await call('login',{demo:true},{Origin:'https://other.example'})).status,403);
+let login=await call('login',{demo:true});assert.equal(login.status,200);cookie=login.cookie.split(';')[0];
+let w=await call('workspace');assert.equal(w.status,200);
+let enquiry=w.body.enquiries.find(e=>e.name==='Development Test');assert.ok(enquiry,'Browser enquiry persisted');
+assert.ok(w.body.calls.some(c=>c.result.outcome==='Connected to Dan'),'Browser call persisted');
+let settings=w.body.settings;
+assert.equal((await call('settings',{...settings,ringSeconds:25})).status,200);
+assert.equal((await call('settings',{...settings,ringSeconds:30})).status,409);
+let current=(await call('workspace')).body.settings;
+assert.equal((await call('settings',{...current,ringSeconds:20})).status,200);
+assert.equal((await call('rota',{...w.body.rota,primary:'lewis'})).status,422);
+assert.equal((await call('enquiries',{name:12})).status,400);
+assert.equal((await call('enquiries',{name:'x',phone:'bad'})).status,422);
+assert.equal((await call('simulate',{date:'2026-02-30',time:'10:00',menu:'2',primary:'priya',backup:'dan',primaryOutcome:'answered',backupOutcome:'answered'})).status,422);
+assert.equal((await call('incidents',{title:'Test investigation',notes:'Synthetic API verification.'})).status,200);
+assert.ok((await call('workspace')).body.audit.length>=5);
+cookie='bw_session=invalid';assert.equal((await call('workspace')).status,401);
+console.log('PASS: authentication, CSRF origin, persistence, version conflict, validation, incident and audit checks.');

@@ -1,0 +1,10 @@
+node_modules/
+.next/
+.env*
+!.env.example
+data/
+work/
+.gstack/
+outputs/
+*.tsbuildinfo
+.DS_Store
