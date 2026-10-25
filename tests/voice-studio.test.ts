@@ -22,3 +22,10 @@ test('coverage outcomes produce evidence-based branches and corrected details re
  const rejected=await executeAgentTool(c,'update_context',{stage:'approval',facts:{}});assert.ok((rejected as {error?:string}).error);assert.equal(c.stage,'complaint');
  assert.equal(c.proposals.length,call.proposals.length);
 });
+test('agent cannot end a call for off-topic questions, pauses, or a simple thank-you',async()=>{
+ for(const text of ['Tell me about football','Give me a moment','Thank you','Can you fix a tap?',"Do not end the call","Don't hang up"]){
+ const c:AgentCall={...call,messages:[{role:'user',content:text}],closed:false,events:[]};
+ const r=await executeAgentTool(c,'end_call',{});assert.equal(c.closed,false);assert.ok((r as {error?:string}).error);
+ }
+ const c:AgentCall={...call,messages:[{role:'user',content:'That is all, goodbye.'}],closed:false,events:[]};await executeAgentTool(c,'end_call',{});assert.equal(c.closed,true);
+});
