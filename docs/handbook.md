@@ -13,6 +13,8 @@
 
 ## Voice calls
 
+The instructions below describe the browser studio. Real inbound telephone calls now use the separately documented [Plivo streaming pilot](plivo-pilot.md). Select **Call simulator → View live telephone calls** to observe those calls; the browser simulator does not automatically join a phone call.
+
 Voice agent settings control name, AI-disclosing greeting, voice ID, style, turn limit and enabled state. Only administrators publish changes; existing calls keep their profile snapshot. Call simulator offers the conversational studio and separate routing diagnostics.
 
 Select a scenario and voice engine, start a call, click Speak, allow microphone permission, and speak. ElevenLabs records a turn, transcribes it, then the AI checks tools and replies with speech. An approximately 2.8-second pause after speech ends a turn, with a 30-second maximum recording. A caller needing longer can take another turn or type. Interrupt stops playback; this is turn-based audio, not full-duplex telephony. Browser voice is an alternative with browser-specific recognition restrictions. Scripted tests are optional and may use configured providers; do not run them assuming they are free.
@@ -36,7 +38,7 @@ Map highlights represent recorded transitions. Use Follow, Fit or stage selectio
 | Queue execution | Beat schedules ticks every 15 seconds; worker processes durable business jobs with idempotency and retry/backoff |
 | Backup | Daily PostgreSQL JSON snapshot, seven retained copies on the web volume |
 
-Business state is in PostgreSQL. Redis/BullMQ schedules execution; transactional checks prevent duplicate tasks. Paused/failed work remains inspectable. No real customer calls, SMS, email or engineer dispatch is performed.
+Business state is in PostgreSQL. Redis/BullMQ schedules execution; transactional checks prevent duplicate tasks. Paused/failed work remains inspectable. Automation jobs do not initiate customer calls, SMS, email or engineer dispatch. The separate inbound Plivo pilot accepts real telephone audio while business actions remain simulated.
 
 ## Architecture
 

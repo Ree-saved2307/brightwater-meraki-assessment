@@ -4,6 +4,8 @@ Meraki technical assessment: a multi-page public website and authenticated opera
 
 [GitHub repository](https://github.com/Ree-saved2307/brightwater-meraki-assessment)
 
+**Readiness: functional prototype / supervised pilot. Not industry-grade or certified.** See the [production-readiness assessment](docs/production-readiness.md) for evidence and release gates.
+
 ## Live application
 
 - [Public website](https://brightwater-app-production.up.railway.app)
@@ -36,6 +38,10 @@ npm start
 
 ## Documentation
 
+- [Documentation index and suggested reading order](docs/README.md)
+- [Production readiness, test evidence and remaining work](docs/production-readiness.md)
+- [Telephone operations and incident runbook](docs/telephone-runbook.md)
+
 - [Plivo inbound pilot and test procedure](docs/plivo-pilot.md)
 
 - [Operation, architecture, deployment and troubleshooting](docs/handbook.md)
@@ -63,6 +69,6 @@ ChatGPT/Codex assisted with planning, implementation, debugging, tests and docum
 
 ## Submission status
 
-Core website and Task 2/3 drafts are present. **Do not interpret this repository as proof of every assessment checkbox.** Physical-mobile testing, original Brand Pack assets, free-hosting compliance, Meraki repository access and final submission delivery remain unverified/outstanding. The [checklist](docs/assessment-checklist.md) distinguishes implementation from delivery evidence.
+Core website and Task 2/3 drafts are present. **Do not interpret this repository as proof of every assessment checkbox.** Physical-mobile testing, original Brand Pack assets, free-hosting compliance, formal submission delivery and final submission delivery remain unverified/outstanding. The [checklist](docs/assessment-checklist.md) distinguishes implementation from delivery evidence.
 
 This is an assessment simulation, not a certified production enterprise service. No MFA/SSO, real telephony, external email/SMS delivery, cross-provider disaster recovery or universal conversational reliability is claimed.

@@ -6,11 +6,11 @@
 
 The starting priority was a usable public website with accurate prices, coverage restrictions, emergency guidance and a straightforward enquiry journey. Next.js and TypeScript were selected with the user. The scope then expanded at the user's request to staff accounts, operations, automations and simulated AI calls. These additions do not replace the assessment's written telephony/support deliverables.
 
-The site has separate Home, Services, Pricing, Coverage, About, Contact and Landlords pages. Enquiries persist with a reference for office follow-up. The workspace provides role-based access, assignment, internal tasks, rota, audit events and record-based analytics. Customer communications, bookings and dispatch remain simulated.
+The site has separate Home, Services, Pricing, Coverage, About, Contact and Landlords pages. Enquiries persist with a reference for office follow-up. The workspace provides role-based access, assignment, internal tasks, rota, audit events and record-based analytics. Customer messaging, bookings and dispatch remain simulated; an inbound telephone pilot now carries real audio.
 
 ## Decisions and assumptions
 
-One Railway web service serves both website and workspace; PostgreSQL, Redis, worker and beat are separate services. SQLite remains a convenient local-development fallback. Business records are authoritative; Redis schedules idempotent work. DeepSeek uses allowlisted tools for business facts and proposes actions rather than executing customer deliveries. ElevenLabs provides turn-based speech/transcription. Human consent and operator approval remain distinct. The agent identifies as AI and escalates uncertainty.
+One Railway web service serves both website and workspace; PostgreSQL, Redis, worker and beat are separate services. SQLite remains a convenient local-development fallback. Business records are authoritative; Redis schedules idempotent work. DeepSeek uses allowlisted tools for business facts and proposes actions rather than executing customer deliveries. ElevenLabs provides browser speech/transcription and bidirectional telephone audio through a Plivo WebSocket bridge, with interruption handling. Human consent and operator approval remain distinct. The agent identifies as AI and escalates uncertainty.
 
 The assessment's fictional people, pricing, postcode rules and gas-emergency number are treated as requirements. Missing Brand Pack assets are replaced by clearly labelled illustrative imagery and a temporary wordmark. Telephony platform details and operational choices remain proposed assumptions in the build sheet, with client questions rather than invented confirmations.
 
@@ -28,4 +28,4 @@ AI output was not accepted as proof: generated mockups needed factual correction
 
 ## Outstanding handover
 
-Confirm a physical mobile test, receive the Brand Pack, resolve the brief's free-hosting requirement, grant Meraki repository access, and package/send the final assessment submission. Real use would additionally require independent recovery, security/accessibility/load review, stronger identity lifecycle and monitored external delivery. No real number port, customer email or submission email has been sent. The accompanying checklist records these gaps openly.
+Confirm a physical mobile test, receive the Brand Pack, resolve the brief's free-hosting requirement, formally deliver the public repository link to Meraki, and package/send the final assessment submission. Real use would additionally require independent recovery, security/accessibility/load review, stronger identity lifecycle and monitored external delivery. No real number port, customer email or submission email has been sent. The accompanying checklist records these gaps openly.
