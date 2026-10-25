@@ -1,6 +1,6 @@
 # Brightwater Plumbing & Heating
 
-Meraki technical assessment: a multi-page public website and authenticated operations workspace, extended with simulated automations and an AI voice-call studio. **All customer calls, messages, bookings and dispatches remain simulated.** AI and voice providers process test conversations when configured; use fictional data only.
+Meraki technical assessment: a multi-page public website and authenticated operations workspace, extended with simulated automations and an AI voice-call studio. **Browser calls and business actions remain simulated. A real inbound Plivo telephone pilot is now implemented; bookings, messages and dispatches are still simulated.** AI and voice providers process test conversations when configured; use fictional data only.
 
 [Private GitHub repository](https://github.com/Ree-saved2307/brightwater-meraki-assessment)
 
@@ -35,6 +35,8 @@ npm start
 `npm run worker` runs the local automation loop using `.env.local`. Production starts with `node scripts/start-hosted.mjs`; see the deployment guide for required variables and separate service roles.
 
 ## Documentation
+
+- [Plivo inbound pilot and test procedure](docs/plivo-pilot.md)
 
 - [Operation, architecture, deployment and troubleshooting](docs/handbook.md)
 - [Assessment checklist and remaining evidence](docs/assessment-checklist.md)
