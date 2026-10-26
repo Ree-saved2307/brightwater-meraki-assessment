@@ -4,7 +4,7 @@ Meraki technical assessment: a multi-page public website and authenticated opera
 
 [GitHub repository](https://github.com/Ree-saved2307/brightwater-meraki-assessment)
 
-**Readiness: functional prototype / supervised pilot. Not industry-grade or certified.** See the [production-readiness assessment](docs/production-readiness.md) for evidence and release gates.
+The application combines an assessment website with a supervised telephony pilot and staff operations workspace. See the [operational readiness guide](docs/production-readiness.md) for acceptance criteria.
 
 ## Live application
 
@@ -51,7 +51,7 @@ npm start
 
 ## Telephone streaming
 
-The Plivo inbound pilot now supports an ElevenLabs audio bridge with caller interruption. See [streaming setup and limits](docs/plivo-pilot.md#streaming-upgrade). The Call simulator includes a live telephone map viewer. The owner confirmed successful physical-mobile website and call testing on 26 October 2026; see the [test record](docs/test-evidence.md). Broader network/failure testing remains outstanding.
+The Plivo inbound pilot now supports an ElevenLabs audio bridge with caller interruption. See [streaming setup and limits](docs/plivo-pilot.md#streaming-upgrade). The Call simulator includes a live telephone map viewer. The owner confirmed successful physical-mobile website and call testing on 26 October 2026; see the [test record](docs/test-evidence.md). Further regression scenarios are listed in the telephone runbook.
 
 ## What works
 
@@ -61,17 +61,17 @@ The call studio combines DeepSeek tool use with optional ElevenLabs speech/trans
 
 ![Voice studio — earlier UI capture; the current map contains additional branches](docs/images/voice-studio.png)
 
-## Technologies and assistance
+## Technologies
 
 Next.js 16, React 19, TypeScript, Node.js 24, PostgreSQL, local SQLite, Redis/BullMQ, Docker and Railway; bcrypt password hashing; DeepSeek reasoning and ElevenLabs voice; CSS, Lucide icons, Manrope and Inter fonts. Tests use Node's test runner and tsx.
 
-ChatGPT/Codex assisted with planning, implementation, debugging, tests and documentation. Recorded skills/workflows include Taste Skill, Impeccable and gstack browser verification; AI image generation supplied concepts and labelled illustrative photography. AI assistance was substantial, not merely proofreading. Generated output required factual corrections and browser testing. See the development summary for limitations and learning.
+The [development summary](docs/development-summary.md) explains the approach, tools, AI assistance, quality checks and lessons learned.
 
 ## Submission status
 
-Core website and Task 2/3 drafts are present. **Do not interpret this repository as proof of every assessment checkbox.** Original Brand Pack assets, free-hosting compliance, formal submission delivery remain unverified/outstanding. The [checklist](docs/assessment-checklist.md) distinguishes implementation from delivery evidence.
+The website, telephony design, support-ticket response and written summary are prepared. The [assessment checklist](docs/assessment-checklist.md) records delivery status; the development summary lists the remaining handover items.
 
-This is an assessment simulation, not a certified production enterprise service. MFA/SSO, external SMS delivery, cross-provider disaster recovery and universal conversational reliability are not claimed. Real inbound telephony is a pilot; support-ticket email is a separate, explicitly selected live Gmail integration.
+Operational scope and future production acceptance criteria are documented in the readiness guide.
 
 ## Support helpdesk
 

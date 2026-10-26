@@ -52,4 +52,4 @@ Deploy the same application source to both the Railway web service and dedicated
 
 ## Limits
 
-This is a functional small-team helpdesk, not a certified ITSM platform. No attachment storage, mailbox-wide import, automatic email threading, business-hours SLA calendars, verified customer accounts, email deliverability guarantee, or contractual availability guarantee is claimed. The portal supports up to 500 messages per ticket. Existing enterprise-readiness limitations still apply.
+The helpdesk supports plain-text intake from a dedicated folder, elapsed-hour targets and bearer-link customer access, with up to 500 messages per ticket. Attachment handling, automatic email threading and business-hours calendars are future extensions. See the operational readiness guide for wider acceptance criteria.

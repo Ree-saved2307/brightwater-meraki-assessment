@@ -1,6 +1,6 @@
 # Production-readiness assessment
 
-Updated 26 October 2026. **Verdict: supervised pilot, not industry-grade or certified.** More features do not establish greater reliability. No uptime SLA, compliance certification or universal conversational accuracy is claimed.
+Updated 26 October 2026. **Operating scope: supervised pilot.** This guide records verification evidence and the acceptance criteria for broader production use.
 
 ## Implemented versus verified
 

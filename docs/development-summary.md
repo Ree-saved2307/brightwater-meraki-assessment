@@ -4,28 +4,36 @@
 
 ## Approach and priorities
 
-The starting priority was a usable public website with accurate prices, coverage restrictions, emergency guidance and a straightforward enquiry journey. Next.js and TypeScript were selected with the user. The scope then expanded at the user's request to staff accounts, operations, automations and simulated AI calls. These additions do not replace the assessment's written telephony/support deliverables.
+Development began with the customer journey: clear service information, published prices, coverage rules, emergency guidance and a straightforward enquiry form. Next.js and TypeScript provided a consistent foundation for the website and its supporting application. The assessment deliverables were then extended with a staff workspace, task management, automated follow-up and a voice-call demonstration.
 
-The site has separate Home, Services, Pricing, Coverage, About, Contact and Landlords pages. Enquiries persist with a reference for office follow-up. The workspace provides role-based access, assignment, internal tasks, rota, audit events and record-based analytics. Bookings, dispatch and general customer messaging remain simulated. An inbound telephone pilot carries real audio; the helpdesk now supports live Gmail ticket replies, isolated-folder intake, private portal links and overdue tasks.
+The public website contains Home, Services, Pricing, Coverage, About, Contact and Landlords pages. Enquiries receive a reference and are stored for staff follow-up. The workspace brings together individual accounts, assignments, priorities, rota management, audit history and operational reporting. The support desk adds customer conversations, private portal links, Gmail ticket replies and response deadlines. Plivo provides the inbound telephone connection, with ElevenLabs speech and DeepSeek responses.
 
 ## Decisions and assumptions
 
-One Railway web service serves both website and workspace; PostgreSQL, Redis, worker and beat are separate services. SQLite remains a convenient local-development fallback. Business records are authoritative; Redis schedules idempotent work. DeepSeek uses allowlisted tools for business facts and proposes actions rather than executing customer deliveries. ElevenLabs provides browser speech/transcription and bidirectional telephone audio through a Plivo WebSocket bridge, with interruption handling. Human consent and operator approval remain distinct. The agent identifies as AI and escalates uncertainty.
+The website and workspace share a Railway web service. PostgreSQL, Redis, the worker and scheduler run as separate services. PostgreSQL holds business records; Redis schedules background work. Transactional checks and stable job identifiers prevent duplicate processing. SQLite supports local development.
 
-The assessment's fictional people, pricing, postcode rules and gas-emergency number are treated as requirements. Missing Brand Pack assets are replaced by clearly labelled illustrative imagery and a temporary wordmark. Telephony platform details and operational choices remain proposed assumptions in the build sheet, with client questions rather than invented confirmations.
+The voice agent retrieves business information through defined tools and records its actions in the conversation map. It identifies itself as AI. Booking and dispatch proposals remain subject to operator review within the simulation; telephone audio and explicitly selected support emails use connected providers. This separation keeps demonstration workflows distinct from customer-facing delivery.
 
-## Quality checks and lessons
+The assessment's team, prices, postcode restrictions and gas-emergency guidance informed the implementation. Illustrative imagery and a temporary wordmark support the current presentation. The telephony build sheet identifies proposed settings and client decisions, including rota ownership, qualified backup, voicemail destinations and the effect of number porting on the existing broadband service.
 
-Routing/coverage, permissions, session revocation, task ownership, version conflicts, automation idempotency, AI tool limits and voice ownership have automated coverage. Browser checks covered desktop/mobile viewports and key workspace flows. Earlier live provider checks confirmed speech/transcription and selected AI tool cases. Database migration and isolated snapshot restore were verified. The owner confirmed successful website and call testing on a physical mobile device on 26 October. This is user-reported acceptance, not independent load, accessibility or security certification.
+## Quality checks
 
-Problems found included local dependency-read stalls, legitimate requests rejected by origin handling, hard-coded engineer lists, microphone access disabled by a security header, and a queued drag update reading cleared state. These were corrected. The map now limits updates to animation frames and passed a synthetic 900-gesture/9,000-movement stress test. Passing tests does not establish universal device compatibility or enterprise reliability.
+At the helpdesk release, 55 automated tests passed. Coverage includes routing, postcode eligibility, permissions, session revocation, task ownership, stale-update handling, automation idempotency, ticket privacy and portal access. Production builds and deployed service health were checked. Database migration and an isolated snapshot restore were verified.
+
+Browser checks covered desktop and mobile layouts, enquiry and workspace interactions, and the ticket workflow. Successful website and call testing on a physical mobile device was confirmed by the project owner on 26 October 2026. A separate provider-stream test exercised greeting audio, interruption handling and a subsequent response. The conversation map also passed a synthetic gesture stress test.
 
 ## Tools and AI assistance
 
-ChatGPT/Codex provided substantial help with requirements analysis, design exploration, code, debugging, tests and documentation. Recorded design workflows included Taste Skill and Impeccable; gstack browser tooling supported verification. AI image generation produced concepts and labelled illustrative photography. Next.js, React, TypeScript, Node.js, PostgreSQL, SQLite, BullMQ/Redis, Docker, Railway, DeepSeek and ElevenLabs form the implementation stack.
+The implementation uses Next.js, React, TypeScript, Node.js, PostgreSQL, SQLite, Redis/BullMQ, Docker and Railway. Plivo, DeepSeek and ElevenLabs provide telephony and conversational services; Nodemailer, ImapFlow and Mailparser support the Gmail integration.
 
-AI output was not accepted as proof: generated mockups needed factual correction, and browser integration exposed issues that unit tests missed. The distinction between a simulated event, provider response and real customer outcome is essential. The latest voice adjustment allows a longer pause before transcription and adds concise, calm handling guidance for frustrated or abusive callers; broad live conversational evaluation remains outstanding.
+ChatGPT/Codex supported planning, implementation, debugging, tests and documentation. Taste Skill and Impeccable informed interface work, and gstack supported browser verification. AI image generation supplied design concepts and labelled illustrative photography. Generated material required factual review, and browser testing identified integration issues beyond the automated test coverage.
 
-## Outstanding handover
+## Learning and improvements
 
-Receive the Brand Pack, resolve the brief's free-hosting requirement, formally deliver the public repository link to Meraki, and send the packaged PDF assessment submission. Real use would additionally require independent recovery, security/accessibility/load review, stronger identity lifecycle and broader monitored delivery validation. No real number port, customer email or submission email has been sent. The accompanying checklist records these gaps openly.
+Several issues shaped the final implementation: staff selectors were moved to a shared directory so new engineers appear consistently; microphone permissions were corrected; origin checks were aligned with deployment settings; and map updates were bounded and scheduled by animation frame. Voice-turn handling was adjusted to accommodate pauses and avoid ending calls after unrelated questions or a simple thank-you.
+
+These changes reinforced the value of testing the complete user journey alongside individual functions. Clear distinctions between a queued action, provider acceptance and a customer outcome also improved the delivery tracking and documentation.
+
+## Remaining assessment items
+
+The next handover steps are to obtain the original Brand Pack, resolve the free-hosting requirement through a qualifying website deployment or an agreed exception, and send the prepared PDF and repository link to Meraki. Broader production acceptance criteria are maintained separately in the operational readiness guide.

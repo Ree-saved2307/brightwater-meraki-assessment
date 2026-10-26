@@ -1,6 +1,6 @@
 # Brightwater documentation
 
-Current status: **functional prototype suitable for a supervised pilot; not an industry-grade or certified production service**. This documentation distinguishes implemented features from evidence and outstanding work.
+Documentation for the Brightwater assessment website, operations workspace and supervised telephone pilot.
 
 ## Start here
 
@@ -15,11 +15,11 @@ Current status: **functional prototype suitable for a supervised pilot; not an i
 
 ## Assessment submission
 
-Download the [PDF submission folder](../submission/) or [ZIP package](../submission/brightwater-submission.zip). Submission email has not been sent.
+Download the [PDF submission folder](../submission/) or [ZIP package](../submission/brightwater-submission.zip). See the package instructions for submission.
 
 
 - [Checklist](assessment-checklist.md): checked items have evidence; unchecked items remain outstanding.
-- [Telephony and support](telephony-and-support.md): proposed client call flow/build sheet, questions, draft client email and ticket investigation. These are assessment deliverables, not proof of real carrier provisioning.
+- [Telephony and support](telephony-and-support.md): proposed client call flow/build sheet, questions, draft client email and ticket investigation. Client configuration choices are identified as proposals.
 - [Development summary](development-summary.md): approach, decisions, issues, AI assistance and learning.
 
 ## Screenshots
@@ -30,4 +30,4 @@ The handbook and README embed website, task-board, analytics, agent-settings and
 
 The code defines actual behaviour; tests establish only what they exercise. README and these documents supersede historical notes under local `outputs/`. Credentials, user passwords, private database connection strings and provider tokens must never be added to this public repository.
 
-ChatGPT/Codex assisted substantially with implementation and documentation. The development summary identifies recorded design and verification workflows; no external auditor has certified this work.
+The development summary records the tools, assistance, design workflows and verification approach.

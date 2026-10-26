@@ -2,7 +2,7 @@
 
 The existing app now has a real inbound telephone adapter. Customer bookings, dispatch and general email/SMS actions remain simulated. The separate helpdesk now supports explicitly selected live Gmail replies. This is an English-language demonstration of the fictional UK Brightwater business on an Indian test number, not an emergency service.
 
-The deployed streaming mode uses Plivo for the telephone connection, ElevenLabs for continuous transcription and speech, and DeepSeek with the existing allowlisted business tools for responses. The earlier Plivo GetInput/Speak turn-based mode remains a fallback. This is a supervised pilot, not an industry-certified service. Telephone minutes and AI/voice processing are billable.
+The deployed streaming mode uses Plivo for the telephone connection, ElevenLabs for continuous transcription and speech, and DeepSeek with the existing allowlisted business tools for responses. The earlier Plivo GetInput/Speak turn-based mode remains a fallback. This deployment operates as a supervised pilot. Telephone minutes and AI/voice processing are billable.
 
 Private web-service variables: PLIVO_AUTH_ID, PLIVO_AUTH_TOKEN, PLIVO_NUMBER. Never expose these in NEXT_PUBLIC settings or commit credentials. The linked application's POST URLs are `/api/plivo/answer`, `/api/plivo/hangup`, and `/api/plivo/fallback` under the public APP_ORIGIN. Every callback validates the Plivo V3 signature, including the URL and POST body.
 
@@ -24,7 +24,7 @@ ElevenLabs Scribe realtime transcribes continuously; Eleven Flash v2.5 streams s
 
 Call simulator → **View live telephone calls** provides an administrator/dispatcher-only read-only map and transcript, refreshed every two seconds. No secret stream credentials are returned to that screen. Agent events use the same business stages as browser simulation.
 
-Limits: three concurrent streams per web process, 10-minute sessions, 20 caller turns, bounded socket payloads/buffers, and existing monthly speech budget. Gateway or STT failure closes the stream and the XML offers the prior turn-based path. Set PLIVO_STREAMING=false and redeploy to roll back. Brief restart interruptions remain possible; this is not multi-region failover or certified production telephony. Provider usage is billable.
+Limits: three concurrent streams per web process, 10-minute sessions, 20 caller turns, bounded socket payloads/buffers, and existing monthly speech budget. Gateway or STT failure closes the stream and the XML offers the prior turn-based path. Set PLIVO_STREAMING=false and redeploy to roll back. Brief restart interruptions remain possible; multi-region failover is outside the current deployment scope. Provider usage is billable.
 
 Verification: 48 automated tests passed, including stale-generation cancellation and mu-law silence checks. A local WebSocket integration test rejected unauthenticated connections and mismatched call IDs. A hosted synthetic provider test received ElevenLabs greeting audio, injected a fictional caller utterance, observed clearAudio, and received subsequent response audio. This exercised real ElevenLabs/DeepSeek services but did not dial a handset or prove carrier-to-WebSocket operation; the owner subsequently confirmed successful mobile website and call testing on 26 October 2026. Device/carrier details and per-scenario streaming results were not supplied.
 
