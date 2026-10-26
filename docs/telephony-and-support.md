@@ -1,8 +1,8 @@
 # Brightwater telephony handover
 
-24 October 2026 · Fictional assessment · Proposed live configuration; implemented simulator
+Updated 26 October 2026 · Fictional assessment · Task 2 proposed client configuration
 
-The simulator is usable now. The following live settings are proposals until Sarah, Mark and Meraki confirm them. Meraki's hosted platform is not identified in the assessment; the design does not assume that it is Twilio. No port, live number purchase or real call has been initiated.
+The simulator is usable now. The following live settings are proposals until Sarah, Mark and Meraki confirm them. Meraki's hosted platform is not identified in the assessment; the design does not assume that it is Twilio. No client BT number port has been initiated. A separate Indian Plivo test-number pilot now carries real calls; it is not the proposed Meraki client migration.
 
 ## Call flow
 
@@ -65,7 +65,7 @@ Extensions are proposed, not existing facts. Confirm app/OS support, licenses, B
 | Call recording | Off by default; voicemail only until purpose, access, notice and retention are agreed |
 | Outage | Provider-hosted announcement/fallback independent of website, plus alternate connectivity and documented escalation |
 
-Mailboxes are proposed destinations derived from the supplied address prefixes; confirm full domain, recipients, ownership and delivery controls. The software stores tasks but sends no email.
+Mailboxes are proposed destinations derived from the supplied address prefixes; confirm full domain, recipients, ownership and delivery controls. These client voicemail destinations remain proposals. Separately, the implemented helpdesk supports explicitly selected Gmail ticket replies; it does not activate these proposed voicemail destinations.
 
 ## Questions before live configuration
 
@@ -118,6 +118,6 @@ Hi Sarah, I'm sorry those emergency calls did not reach Priya. I'm treating this
 
 **Prevention after diagnosis:** acknowledged primary/backup handover; Friday test call; qualified backup coverage; alerts for unregistered destinations and unanswered emergencies; owned follow-ups with acknowledgment; versioned configuration and rollback; scheduled test calls for Saturday/holiday/DST boundaries; app onboarding and BYOD guidance. Add tests for the actual root cause once known, rather than declaring every possible failure fixed.
 
-## Optional future work: real test number (not part of this simulation release)
+## Implementation extension and remaining migration work
 
-Implement a provider adapter behind the existing routing policy. Use a test number, signed webhook verification, idempotent event processing, explicit answer acceptance, status callbacks, persistent call-leg correlation and a job queue. Normalize timestamps to Europe/London at schedule evaluation. Store the published policy version on each call. Reject forged callbacks and handle retries/out-of-order events. Keep the emergency fallback independent from the web application. Exercise provider failure, device offline, personal voicemail, no answer, timeout, queue, qualification and holiday/DST cases before any port. Record the provider's actual behavior against the simulator; do not assume parity.
+A real Plivo adapter and ElevenLabs streaming pilot are implemented, with successful mobile call testing reported by the owner on 26 October 2026. See plivo-pilot.md and test-evidence.md. The following are requirements for a future client migration, not a claim that every gate has passed: Use a test number, signed webhook verification, idempotent event processing, explicit answer acceptance, status callbacks, persistent call-leg correlation and a job queue. Normalize timestamps to Europe/London at schedule evaluation. Store the published policy version on each call. Reject forged callbacks and handle retries/out-of-order events. Keep the emergency fallback independent from the web application. Exercise provider failure, device offline, personal voicemail, no answer, timeout, queue, qualification and holiday/DST cases before any port. Record the provider's actual behavior against the simulator; do not assume parity.

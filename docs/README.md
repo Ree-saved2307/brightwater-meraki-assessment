@@ -10,7 +10,13 @@ Current status: **functional prototype suitable for a supervised pilot; not an i
 4. [Telephone runbook](telephone-runbook.md): test calls, busy signals, monitoring and rollback.
 5. [Production readiness](production-readiness.md): what is proven, known gaps and proposed acceptance gates.
 
+6. [Helpdesk](helpdesk.md): Gmail intake, ticket workflows, customer links and service targets.
+7. [Test evidence](test-evidence.md): owner-reported mobile acceptance and automated checks.
+
 ## Assessment submission
+
+Download the [PDF submission folder](../submission/) or [ZIP package](../submission/brightwater-submission.zip). Submission email has not been sent.
+
 
 - [Checklist](assessment-checklist.md): checked items have evidence; unchecked items remain outstanding.
 - [Telephony and support](telephony-and-support.md): proposed client call flow/build sheet, questions, draft client email and ticket investigation. These are assessment deliverables, not proof of real carrier provisioning.

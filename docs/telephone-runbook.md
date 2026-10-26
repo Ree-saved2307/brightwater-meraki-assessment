@@ -2,6 +2,10 @@
 
 Scope: supervised testing of fictional Brightwater enquiries. The public telephone pilot is not a real plumbing emergency or dispatch service.
 
+## Latest reported acceptance
+
+On 26 October 2026, the project owner confirmed that the website and calls were tested on a physical mobile device and worked. This is user-reported acceptance evidence. Device/OS/browser, carrier, call IDs and individual scenario results were not supplied; no exhaustive cross-device or failure-test coverage is inferred. The scenario table below remains a repeatable regression checklist, not a claim that every row was individually witnessed.
+
 ## Before a test
 
 - Confirm the Railway web deployment is SUCCESS and `/api/health` responds successfully.

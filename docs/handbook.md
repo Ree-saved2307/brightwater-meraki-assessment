@@ -6,7 +6,8 @@
 2. Sign into `/workspace` with an individual staff account. Initial administrator creation uses the private server-side SETUP_TOKEN and locks after the first account. Administrators create subsequent users. Credentials are not published here.
 3. In Enquiries, search/filter, assign an owner, update status and add internal notes. In Tasks, assign work, priority and due date; engineers update only their own tasks. Version checks reject stale edits.
 4. Publish the on-call rota with appropriately qualified backup. Review handover acknowledgments and gaps. Apprentice Lewis is never eligible for on-call work.
-5. Review Automations for due work, failures and heartbeat status; Customer operations for customer history and simulated communication records; Analytics for workload, overdue tasks and recorded outcomes.
+5. Use Support for assigned tickets, internal/public replies, private customer links and explicitly selected Gmail email. The worker imports unread mail only from the Brightwater Support folder. See [Helpdesk](helpdesk.md).
+6. Review Automations for due work, failures and heartbeat status; Customer operations for customer history and simulated communication records; Analytics for workload, overdue tasks and recorded outcomes.
 
 ![Task board](images/tasks.png)
 ![Analytics](images/analytics.png)
@@ -36,9 +37,10 @@ Map highlights represent recorded transitions. Use Follow, Fit or stage selectio
 | Communication | Approved templates create simulated email/SMS records; controlled failure/retry states |
 | AI proposal | Caller consent plus operator approval creates a simulated task |
 | Queue execution | Beat schedules ticks every 15 seconds; worker processes durable business jobs with idempotency and retry/backoff |
+| Helpdesk | Ticket response/resolution deadlines create owned Tasks; explicit email outbox and dedicated Gmail-folder intake |
 | Backup | Daily PostgreSQL JSON snapshot, seven retained copies on the web volume |
 
-Business state is in PostgreSQL. Redis/BullMQ schedules execution; transactional checks prevent duplicate tasks. Paused/failed work remains inspectable. Automation jobs do not initiate customer calls, SMS, email or engineer dispatch. The separate inbound Plivo pilot accepts real telephone audio while business actions remain simulated.
+Business state is in PostgreSQL. Redis/BullMQ schedules execution; transactional checks prevent duplicate tasks. Paused/failed work remains inspectable. The original enquiry/rota automation jobs do not initiate customer calls, SMS, email or engineer dispatch. The helpdesk worker separately sends explicitly selected ticket replies via Gmail and imports its dedicated support folder. The separate inbound Plivo pilot accepts real telephone audio while business actions remain simulated.
 
 ## Architecture
 
@@ -57,7 +59,7 @@ flowchart LR
 
 ## Railway deployment
 
-Provision five services: web application, PostgreSQL, Redis, worker and beat. The three application services use the same Dockerfile/source and `node scripts/start-hosted.mjs`. Set `SERVICE_ROLE=web`, `worker` or `beat` respectively. Only web uses `/api/health` as an HTTP health check; worker/beat do not serve HTTP, so clear inherited HTTP checks for them. Expose only the web service publicly.
+Provision five services: web application, PostgreSQL, Redis, worker and beat. The three application services use the same Dockerfile/source and `node scripts/start-hosted.mjs`. Set `SERVICE_ROLE=web`, `worker` or `beat` respectively. Web serves `/api/health`; worker and beat also run lightweight HTTP health servers on PORT, checking Redis connectivity. Verify their stored heartbeats as well, since HTTP availability does not prove business processing. Expose only the web service publicly.
 
 | Variable | Services / purpose |
 |---|---|

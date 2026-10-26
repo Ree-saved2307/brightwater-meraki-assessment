@@ -51,7 +51,7 @@ npm start
 
 ## Telephone streaming
 
-The Plivo inbound pilot now supports an ElevenLabs audio bridge with caller interruption. See [streaming setup and limits](docs/plivo-pilot.md#streaming-upgrade). The Call simulator includes a live telephone map viewer. Carrier/handset quality still requires real-call verification.
+The Plivo inbound pilot now supports an ElevenLabs audio bridge with caller interruption. See [streaming setup and limits](docs/plivo-pilot.md#streaming-upgrade). The Call simulator includes a live telephone map viewer. The owner confirmed successful physical-mobile website and call testing on 26 October 2026; see the [test record](docs/test-evidence.md). Broader network/failure testing remains outstanding.
 
 ## What works
 
@@ -69,10 +69,14 @@ ChatGPT/Codex assisted with planning, implementation, debugging, tests and docum
 
 ## Submission status
 
-Core website and Task 2/3 drafts are present. **Do not interpret this repository as proof of every assessment checkbox.** Physical-mobile testing, original Brand Pack assets, free-hosting compliance, formal submission delivery and final submission delivery remain unverified/outstanding. The [checklist](docs/assessment-checklist.md) distinguishes implementation from delivery evidence.
+Core website and Task 2/3 drafts are present. **Do not interpret this repository as proof of every assessment checkbox.** Original Brand Pack assets, free-hosting compliance, formal submission delivery remain unverified/outstanding. The [checklist](docs/assessment-checklist.md) distinguishes implementation from delivery evidence.
 
 This is an assessment simulation, not a certified production enterprise service. MFA/SSO, external SMS delivery, cross-provider disaster recovery and universal conversational reliability are not claimed. Real inbound telephony is a pilot; support-ticket email is a separate, explicitly selected live Gmail integration.
 
 ## Support helpdesk
 
 The workspace **Support** area now includes assigned tickets, priorities, public/internal conversations, elapsed-hour response/resolution targets, overdue Tasks, private customer portal links, Gmail outbox tracking and isolated-folder email intake. See the [helpdesk guide](docs/helpdesk.md) for setup, operation, permissions and limitations.
+
+## Submission package
+
+[Downloadable PDFs and ZIP](submission/) contain the live links, Task 2 design, Task 3 ticket response and two-page Task 4 summary. The mobile website/call pass is recorded as owner-confirmed. The package is prepared; it has not been emailed to Meraki.

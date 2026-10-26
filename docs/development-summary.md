@@ -1,12 +1,12 @@
 # Development summary
 
-25 October 2026 · Meraki technical assessment · Brightwater
+26 October 2026 · Meraki technical assessment · Brightwater
 
 ## Approach and priorities
 
 The starting priority was a usable public website with accurate prices, coverage restrictions, emergency guidance and a straightforward enquiry journey. Next.js and TypeScript were selected with the user. The scope then expanded at the user's request to staff accounts, operations, automations and simulated AI calls. These additions do not replace the assessment's written telephony/support deliverables.
 
-The site has separate Home, Services, Pricing, Coverage, About, Contact and Landlords pages. Enquiries persist with a reference for office follow-up. The workspace provides role-based access, assignment, internal tasks, rota, audit events and record-based analytics. Customer messaging, bookings and dispatch remain simulated; an inbound telephone pilot now carries real audio.
+The site has separate Home, Services, Pricing, Coverage, About, Contact and Landlords pages. Enquiries persist with a reference for office follow-up. The workspace provides role-based access, assignment, internal tasks, rota, audit events and record-based analytics. Bookings, dispatch and general customer messaging remain simulated. An inbound telephone pilot carries real audio; the helpdesk now supports live Gmail ticket replies, isolated-folder intake, private portal links and overdue tasks.
 
 ## Decisions and assumptions
 
@@ -16,7 +16,7 @@ The assessment's fictional people, pricing, postcode rules and gas-emergency num
 
 ## Quality checks and lessons
 
-Routing/coverage, permissions, session revocation, task ownership, version conflicts, automation idempotency, AI tool limits and voice ownership have automated coverage. Browser checks covered desktop/mobile viewports and key workspace flows. Earlier live provider checks confirmed speech/transcription and selected AI tool cases. Database migration and isolated snapshot restore were verified. This is not physical-phone, load, independent accessibility or security certification.
+Routing/coverage, permissions, session revocation, task ownership, version conflicts, automation idempotency, AI tool limits and voice ownership have automated coverage. Browser checks covered desktop/mobile viewports and key workspace flows. Earlier live provider checks confirmed speech/transcription and selected AI tool cases. Database migration and isolated snapshot restore were verified. The owner confirmed successful website and call testing on a physical mobile device on 26 October. This is user-reported acceptance, not independent load, accessibility or security certification.
 
 Problems found included local dependency-read stalls, legitimate requests rejected by origin handling, hard-coded engineer lists, microphone access disabled by a security header, and a queued drag update reading cleared state. These were corrected. The map now limits updates to animation frames and passed a synthetic 900-gesture/9,000-movement stress test. Passing tests does not establish universal device compatibility or enterprise reliability.
 
@@ -28,4 +28,4 @@ AI output was not accepted as proof: generated mockups needed factual correction
 
 ## Outstanding handover
 
-Confirm a physical mobile test, receive the Brand Pack, resolve the brief's free-hosting requirement, formally deliver the public repository link to Meraki, and package/send the final assessment submission. Real use would additionally require independent recovery, security/accessibility/load review, stronger identity lifecycle and monitored external delivery. No real number port, customer email or submission email has been sent. The accompanying checklist records these gaps openly.
+Receive the Brand Pack, resolve the brief's free-hosting requirement, formally deliver the public repository link to Meraki, and send the packaged PDF assessment submission. Real use would additionally require independent recovery, security/accessibility/load review, stronger identity lifecycle and broader monitored delivery validation. No real number port, customer email or submission email has been sent. The accompanying checklist records these gaps openly.

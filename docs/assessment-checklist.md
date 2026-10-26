@@ -1,4 +1,4 @@
-# Assessment checklist — 25 October 2026
+# Assessment checklist — 26 October 2026
 
 Source: Meraki Technical Assessment – Sebastian, TMG-TA-2610-01. Deadline stated as 27 October 2026, 5pm; timezone unspecified. Checkmarks indicate available evidence, not client approval.
 
@@ -13,12 +13,13 @@ Source: Meraki Technical Assessment – Sebastian, TMG-TA-2610-01. Deadline stat
 - [x] Task 2 draft email to Sarah (not sent).
 - [x] Task 3 ordered investigation, required information, initial reply, prevention and separate caller-ID issue.
 - [x] Updated concise development summary, including AI assistance and remaining work.
-- [ ] Final PDF attachments or shared submission folder and submission email: not sent by this task.
+- [x] Final PDF submission pack prepared in submission/ and packaged as a ZIP.
+- [ ] Submission email and repository link formally sent to Meraki: not sent by this task.
 
 ## Website requirements
 
 - [x] Responsive layouts and desktop/mobile viewport checks.
-- [ ] Physical mobile-device test: no recorded evidence; emulation does not satisfy this requirement.
+- [x] Physical mobile-device website test: owner confirmed successful testing on 26 October 2026; see test-evidence.md.
 - [x] Tap-to-call, services/pricing, coverage, emergency/gas guidance, landlord section, team, reviews and opening hours.
 - [x] Enquiry fields, validation, confirmation/reference and documented production destination (staff database/work queue; customer delivery simulated).
 - [x] Public deployment on Railway.
@@ -37,12 +38,12 @@ Source: Meraki Technical Assessment – Sebastian, TMG-TA-2610-01. Deadline stat
 - [x] Real inbound Plivo adapter deployed; SDK-compatible signature checks verified.
 - [x] Bidirectional ElevenLabs streaming and interruption handling implemented; hosted synthetic audio test passed.
 - [x] Live telephone map/transcript viewer implemented (two-second refresh).
-- [ ] Successful end-to-end carrier/handset streaming evaluation: not yet recorded.
+- [x] Successful mobile call test: owner confirmed calls worked on a physical mobile device on 26 October 2026. Detailed streaming/interruption/network scenario coverage was not supplied.
 - [ ] Enterprise certification, MFA/SSO, general customer SMS/dispatch and cross-provider disaster recovery: not implemented/claimed.
 
 ## Evidence boundaries
 
-48 automated tests passed at the streaming release. A hosted synthetic audio test used real providers and verified greeting audio, interruption clearing and subsequent response audio. This is not a sustained real-call evaluation. No provider calls were made for this documentation-only update. Prompt guidance for patience/abuse is not a guarantee of handling every conversation. Screenshots are illustrative captures from development; voice-map images predate its latest expansion. Existing historical output notes may describe older architecture; README and this handbook are the current handover.
+48 automated tests passed at the streaming release; 55 passed at the later helpdesk release. A hosted synthetic audio test used real providers and verified greeting audio, interruption clearing and subsequent response audio. The owner subsequently confirmed successful physical-mobile calls on 26 October; this does not establish sustained or exhaustive evaluation. No new provider calls were made for this documentation-only update. Prompt guidance for patience/abuse is not a guarantee of handling every conversation. Screenshots are illustrative captures from development; voice-map images predate its latest expansion. Existing historical output notes may describe older architecture; README and this handbook are the current handover.
 
 ## Helpdesk extension — 26 October 2026
 
