@@ -1,3 +1,5 @@
+import {escalateTickets} from './tickets';
+import {processTicketMail} from './ticket-mail';
 import {createHash} from 'node:crypto';
 import {audit, getRecord, listRecords, saveRecord, transaction} from './store';
 
@@ -50,6 +52,7 @@ export async function runDue(now=new Date(),source:'worker'|'manual'='worker'){
    catch{(await saveRecord(current.id,'automation-job',{...current,status:'Failed',attempts:current.attempts+1,detail:'Processing failed. Check the worker logs, then retry.'}));(await audit('Automation failed',current.id,'Automation'));}
   }));
  }
+ if(source==='worker'){await escalateTickets(now);await processTicketMail();}
  if(source==='worker')(await saveRecord('automation-worker','worker',{lastRun:now.toISOString(),processed,paused:!r.enabled}));return processed;
 }
 export async function jobAction(id:string,action:string){return (await transaction(async ()=>{

@@ -38,8 +38,20 @@ Source: Meraki Technical Assessment – Sebastian, TMG-TA-2610-01. Deadline stat
 - [x] Bidirectional ElevenLabs streaming and interruption handling implemented; hosted synthetic audio test passed.
 - [x] Live telephone map/transcript viewer implemented (two-second refresh).
 - [ ] Successful end-to-end carrier/handset streaming evaluation: not yet recorded.
-- [ ] Enterprise certification, MFA/SSO, real customer messaging/dispatch and cross-provider disaster recovery: not implemented/claimed.
+- [ ] Enterprise certification, MFA/SSO, general customer SMS/dispatch and cross-provider disaster recovery: not implemented/claimed.
 
 ## Evidence boundaries
 
 48 automated tests passed at the streaming release. A hosted synthetic audio test used real providers and verified greeting audio, interruption clearing and subsequent response audio. This is not a sustained real-call evaluation. No provider calls were made for this documentation-only update. Prompt guidance for patience/abuse is not a guarantee of handling every conversation. Screenshots are illustrative captures from development; voice-map images predate its latest expansion. Existing historical output notes may describe older architecture; README and this handbook are the current handover.
+
+## Helpdesk extension — 26 October 2026
+
+- [x] Ticket assignment, priorities, statuses, search and role-restricted updates.
+- [x] Internal/public conversation separation; expiring and revocable customer portal links.
+- [x] Elapsed-hour response/resolution targets and idempotent overdue Tasks.
+- [x] Gmail SMTP/IMAP authentication verified; credentials held in Railway secrets.
+- [x] Dedicated-folder intake and explicitly selected public email replies with durable delivery state and manual retry.
+- [ ] End-to-end customer email delivery test: not performed; authentication verification alone is not delivery evidence.
+- [ ] Email threading, attachments and business-hours SLA calendars: not implemented.
+
+See [Helpdesk](helpdesk.md). Existing enquiry/SMS delivery remains simulated. 55 automated tests pass with this extension.

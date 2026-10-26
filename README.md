@@ -1,6 +1,6 @@
 # Brightwater Plumbing & Heating
 
-Meraki technical assessment: a multi-page public website and authenticated operations workspace, extended with simulated automations and an AI voice-call studio. **Browser calls and business actions remain simulated. A real inbound Plivo telephone pilot is now implemented; bookings, messages and dispatches are still simulated.** AI and voice providers process test conversations when configured; use fictional data only.
+Meraki technical assessment: a multi-page public website and authenticated operations workspace, extended with simulated automations and an AI voice-call studio. **Browser calls and business actions remain simulated. A real inbound Plivo telephone pilot is now implemented; bookings, general customer-operation messages and dispatches are still simulated. Explicitly selected support-ticket emails now use Gmail SMTP, with dedicated-folder IMAP intake.** AI and voice providers process test conversations when configured; use fictional data only.
 
 [GitHub repository](https://github.com/Ree-saved2307/brightwater-meraki-assessment)
 
@@ -71,4 +71,8 @@ ChatGPT/Codex assisted with planning, implementation, debugging, tests and docum
 
 Core website and Task 2/3 drafts are present. **Do not interpret this repository as proof of every assessment checkbox.** Physical-mobile testing, original Brand Pack assets, free-hosting compliance, formal submission delivery and final submission delivery remain unverified/outstanding. The [checklist](docs/assessment-checklist.md) distinguishes implementation from delivery evidence.
 
-This is an assessment simulation, not a certified production enterprise service. No MFA/SSO, real telephony, external email/SMS delivery, cross-provider disaster recovery or universal conversational reliability is claimed.
+This is an assessment simulation, not a certified production enterprise service. MFA/SSO, external SMS delivery, cross-provider disaster recovery and universal conversational reliability are not claimed. Real inbound telephony is a pilot; support-ticket email is a separate, explicitly selected live Gmail integration.
+
+## Support helpdesk
+
+The workspace **Support** area now includes assigned tickets, priorities, public/internal conversations, elapsed-hour response/resolution targets, overdue Tasks, private customer portal links, Gmail outbox tracking and isolated-folder email intake. See the [helpdesk guide](docs/helpdesk.md) for setup, operation, permissions and limitations.
