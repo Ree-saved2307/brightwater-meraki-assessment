@@ -4,7 +4,7 @@ Open the deployed [staff workspace](https://brightwater-app-production.up.railwa
 
 ## Staff workflow
 
-1. Create a ticket with customer name/email, subject, description, priority and optional owner.
+1. Create a ticket with customer name/email, subject, internal description, priority and optional owner. Saving a new staff-created ticket does not email the customer or publish its description to the customer portal.
 2. Assign an active staff member. Administrators and dispatchers manage all tickets. Engineers can read and update only their assigned tickets; viewers cannot change tickets.
 3. Add an **internal note** for staff or a **public reply** for the customer portal. Internal is the default. Saving a public reply does not send email unless a manager explicitly selects **Send by email**.
 4. Track Open, In progress, Waiting for customer, Resolved and Closed. Filter by status, overdue or free-text search.
@@ -48,7 +48,7 @@ The existing scheduled worker creates at most one overdue response task and one 
 
 Deploy the same application source to both the Railway web service and dedicated worker. The existing beat schedules worker ticks; no new database is needed. Ticket, message, outbox, import and worker-lease records use the existing PostgreSQL record store and backups. Local development uses SQLite. `npm ci`, `npm test`, `npm run build` remain the local checks. Dependencies added: Nodemailer, ImapFlow and Mailparser.
 
-55 automated tests passed at this release, including six helpdesk tests covering engineer access, stale updates, private notes, expiring/revocable tokens, idempotent escalations, reopened tickets and explicit email selection. Production compilation passed. Browser workflow and deployment checks are recorded in the release handover. Authentication verification is not an end-to-end email delivery test.
+56 automated tests passed after the ticket-creation clarification, including seven helpdesk tests covering engineer access, stale updates, private notes, expiring/revocable tokens, idempotent escalations, reopened tickets and explicit email selection. Production compilation passed. Browser workflow and deployment checks are recorded in the release handover. Authentication verification is not an end-to-end email delivery test.
 
 ## Limits
 
